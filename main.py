@@ -32,7 +32,7 @@ selected_timezone = st.multiselect("Select Timezones", Time_Zones,default=[ "UTC
 
 st.success("Selected Time")
 for tz in selected_timezone:
-    current_Time= datetime.now(ZoneInfo(tz)).strftime("%Y-%M-%D %I %H:%M:%S %p")
+    current_Time= datetime.now(ZoneInfo(tz)).strftime("%Y-%m-%d %I:%M:%S %p")
 
     st.write(f"**{tz}**: {current_Time}")
 
@@ -45,7 +45,8 @@ from_timezone = st.selectbox("From TimeZone", Time_Zones,index=0)
 to_timezones =st.selectbox("TO TimeZone", Time_Zones, index=1)
 
 if st.button("Convert Time"):
-    dt = datetime.combine(datetime.today(), current_time , tzinfo= ZoneInfo(from_timezone))
+    # dt = datetime.combine(datetime.today(), current_time , tzinfo= ZoneInfo(from_timezone))
+    dt = datetime.combine(datetime.today(), current_time).replace(tzinfo=ZoneInfo(from_timezone))
 
-    converted_time = dt.astimezone(ZoneInfo(to_timezones)).strftime("%Y-%M-%D %I %H:%M:%S %p")
+    converted_time = dt.astimezone(ZoneInfo(to_timezones)).strftime("%Y-%m-%d %I %H:%M:%S %p")
     st.success(f"Converted TimeZone {to_timezones}: {converted_time}")
